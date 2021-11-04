@@ -13,6 +13,10 @@ To set up Express from scratch do the following:
 2. Run `npm init`
 3. Run `npm install express`
 4. Create a .gitignore file with `node_modules` in it
+5. Install nodemon to watch your server when you make updates with `sudo npm i -g nodemon`
+6. now run the server with `nodemon index.js`
+7. Set an environment variable of 5000 with code in index.js and command line `export PORT=5000`
+
 
 ### __Run instructions__
 
