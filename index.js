@@ -37,14 +37,31 @@ app.get('/api/course/:id', (request, response) => {
   response.send(course); //works as an else statment
 });
 
-// POST API make a new course
+// POST API make a new course this will mean sending data that needs to be validated
 app.post('/api/courses', (request, response) => {
+  if(!request.body.name || request.body.name.length < 3) {
+    // 400 bad request
+    response.status(400).send("Name is required and minimum 3 characters");
+    return;
+  }
   const course = {
     id: courses.length + 1,
     name: request.body.name //reads the body object
-  }
+  };
+
   courses.push(course);
-  response.send(course); //always return this to the client
+  response.send(course); //always return the response in the body of the post
+});
+
+//PUT to change something
+
+app.put('/api/courses/:id', (request, response) => {
+  //look up course
+  //if not exist return 404
+  //otherwise validate
+  //if invalade return 400
+  //update course 
+  //return updated course
 })
 
 

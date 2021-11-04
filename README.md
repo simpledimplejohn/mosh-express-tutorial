@@ -16,6 +16,7 @@ To set up Express from scratch do the following:
 5. Install nodemon to watch your server when you make updates with `sudo npm i -g nodemon`
 6. now run the server with `nodemon index.js`
 7. Set an environment variable of 5000 with code in index.js and command line `export PORT=5000`
+8. Add joi to validate more simply with `npm i joi`
 
 
 ### __Run instructions__
