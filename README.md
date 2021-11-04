@@ -19,3 +19,7 @@ To set up Express from scratch do the following:
 1. Download repo
 2. Navigate to Root folder
 3. In terminal run: `node index.js`
+4. In Chrome navigate to `localhost:3000`
+
+### __Notes About Express__
+
