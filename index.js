@@ -1,3 +1,5 @@
+//installing joi as a class
+//const Joi = require('joi');
 // loading express with the require method
 const express = require('express');
 // a const for calling the expression, called app by convention
@@ -31,7 +33,7 @@ app.get('/api/courses', (request, response) => {
 
 // /api/courses/1
 // how to find a course using the find method, c is courses
-app.get('/api/course/:id', (request, response) => {
+app.get('/api/courses/:id', (request, response) => {
   const course = courses.find(c => c.id === parseInt(request.params.id))
   if (!course) response.status(404).send('the course with the id was not found')
   response.send(course); //works as an else statment
@@ -39,6 +41,7 @@ app.get('/api/course/:id', (request, response) => {
 
 // POST API make a new course this will mean sending data that needs to be validated
 app.post('/api/courses', (request, response) => {
+
   if(!request.body.name || request.body.name.length < 3) {
     // 400 bad request
     response.status(400).send("Name is required and minimum 3 characters");
@@ -53,15 +56,34 @@ app.post('/api/courses', (request, response) => {
   response.send(course); //always return the response in the body of the post
 });
 
-//PUT to change something
-
+//PUT to change something--needs the id because its a specific item we are changing
 app.put('/api/courses/:id', (request, response) => {
   //look up course
   //if not exist return 404
+  const course = courses.find(c => c.id === parseInt(request.params.id))
+  if (!course) response.status(404).send('the course with the id was not found')
   //otherwise validate
-  //if invalade return 400
+  //if invalid return 400
+  if(!request.body.name || request.body.name.length < 3) {
+    // 400 bad request
+    response.status(400).send("Name is required and minimum 3 characters");
+    return;
+  }
+
   //update course 
+  course.name = request.body.name;
   //return updated course
+  response.send(course);
+})
+
+app.delete('/api/courses/:id', (request, response) => {
+  //look up course
+  //if not exist return 404
+  const course = courses.find(c => c.id === parseInt(request.params.id))
+  if (!course) response.status(404).send('the course with the id was not found')
+  
+
+
 })
 
 
