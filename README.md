@@ -36,10 +36,10 @@ To set up Express from scratch do the following:
 3. POST NEW COURSE `POST  http://localhost:3000/api/courses`
   In body set format to `raw` and type to `JSON` add this to body:
   `{ "name": "New Course" }`
-4. PUT NEW COURSE `GET  http://localhost:3000/api/courses/1`
+4. PUT NEW COURSE `PUT  http://localhost:3000/api/courses/1`
  In body set format to `raw` and type to `JSON` add this to body:
   `{ "name": "New Course Putted" }`
   Trigger an error by entering an ID that is not in the list
   Or by entering no name in the body
-5. DELETE 
+5. DELETE `DELETE  http://localhost:3000/api/courses/1`
 

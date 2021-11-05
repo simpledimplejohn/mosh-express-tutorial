@@ -35,8 +35,8 @@ app.get('/api/courses', (request, response) => {
 // how to find a course using the find method, c is courses
 app.get('/api/courses/:id', (request, response) => {
   const course = courses.find(c => c.id === parseInt(request.params.id))
-  if (!course) response.status(404).send('the course with the id was not found')
-  response.send(course); //works as an else statment
+  if (!course) return response.status(404).send('the course with the id was not found'); //return means exit out after the cleaner way of writing the code
+  response.send(course); //works as an else statement
 });
 
 // POST API make a new course this will mean sending data that needs to be validated
@@ -61,13 +61,16 @@ app.put('/api/courses/:id', (request, response) => {
   //look up course
   //if not exist return 404
   const course = courses.find(c => c.id === parseInt(request.params.id))
-  if (!course) response.status(404).send('the course with the id was not found')
+  if (!course) {
+    response.status(404).send('the course with the id was not found')
+    return; //if invalid exit
+  }
   //otherwise validate
   //if invalid return 400
   if(!request.body.name || request.body.name.length < 3) {
     // 400 bad request
     response.status(400).send("Name is required and minimum 3 characters");
-    return;
+    return; //exits code if not okay
   }
 
   //update course 
@@ -80,8 +83,16 @@ app.delete('/api/courses/:id', (request, response) => {
   //look up course
   //if not exist return 404
   const course = courses.find(c => c.id === parseInt(request.params.id))
-  if (!course) response.status(404).send('the course with the id was not found')
-  
+  if (!course) {
+    response.status(404).send('the course with the id was not found')
+    return; //exits code if not found
+  }
+
+  //delete with splice
+  const index = courses.indexOf(course);
+  courses.splice(index, 1);
+  //return deleted course
+  response.send(course)
 
 
 })
