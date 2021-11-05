@@ -1,12 +1,16 @@
-//installing joi as a class
-//const Joi = require('joi');
 // loading express with the require method
 const express = require('express');
 // a const for calling the expression, called app by convention
 const app = express()
 
-// very important--adds some midleware that makes it so we don't have to change strings to json
-app.use(express.json());
+//app.use is how you add middleware
+// very important--adds some middleware that makes it so we don't have to change strings to json
+app.use(express.json()); //parses into json() object, puts in request.body
+app.use(function(req,res,next) {
+  console.log('logging...');
+  next(); //passes control into the next middleware object otherwise it hangs
+});
+app.use(express.static('public')); //static files are now in public
 
 //hard coded array of courses--no database yet
 const courses = [
@@ -26,12 +30,12 @@ app.get('/', (request, response) => {
   response.send('I have been getted again')
 });
 
-
+// GET ALL
 app.get('/api/courses', (request, response) => {
   response.send(courses); //in place of a database call we are using an array of three numbers
 })
 
-// /api/courses/1
+//GET BY ID
 // how to find a course using the find method, c is courses
 app.get('/api/courses/:id', (request, response) => {
   const course = courses.find(c => c.id === parseInt(request.params.id))
@@ -48,7 +52,7 @@ app.post('/api/courses', (request, response) => {
     return;
   }
   const course = {
-    id: courses.length + 1,
+    id: courses.length + 1, //generates an ID (not nec in databases)
     name: request.body.name //reads the body object
   };
 
@@ -79,6 +83,7 @@ app.put('/api/courses/:id', (request, response) => {
   response.send(course);
 })
 
+// DELETE BY ID
 app.delete('/api/courses/:id', (request, response) => {
   //look up course
   //if not exist return 404
